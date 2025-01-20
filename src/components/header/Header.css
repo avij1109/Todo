@@ -1,15 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@100..900&display=swap');
+
 .bar{
     display: flex;
     align-items: center;
     justify-content: space-between;
     
     background-color: lightblue;
-
-
+    padding: 0px;
+    margin: 0px;
 
 }
+body{
+    margin: 0%;
+    padding: 0%
+    ;
+}
+.nav-bar{
+    display: flex;
+    gap: 15px;
+
+}
+
 .logo{
     border-radius: 50%;
     object-fit: cover;
     height: 100px;
 }
+.nav-bar a{
+    font-size: 20px;
+}
+.buttons{
+    gap: 20px;
+    display: flex;
+
+}
+.btnn{
+    color: black;
+    padding: 10px;
+    font-size: 20px;
+    font-family: 'Smooch Sans',sans-serif;
+}
+

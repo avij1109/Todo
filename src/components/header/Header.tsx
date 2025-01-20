@@ -10,8 +10,10 @@ const Header = () => {
             <a href="">Home</a>
 
         </nav>
-        <button className='btnn'>login</button>
-        <button className='btnn'>signup</button>
+        <div className="buttons">
+            <button className='btnn'>login</button>
+        <button className='btnn'>signup</button></div>
+        
     </div>
   )
 }

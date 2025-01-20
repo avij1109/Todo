@@ -1,16 +1,21 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/header/Header';
+import Sidebar from './components/sidebar/Sidebar';
+import Login from '../src/pages/Login';
+import Signup from '../src/pages/Signup';
 
-import './App.css'
-import Header from './components/header/Header'
-
-function App() {
-
+const App = () => {
   return (
-      <div>
-        <Header/>
-        
-      </div>
-      
-  )
-}
+    <Router>
+      <Header />
+      <Sidebar />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;

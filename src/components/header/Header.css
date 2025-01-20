@@ -1,0 +1,15 @@
+.bar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    background-color: lightblue;
+
+
+
+}
+.logo{
+    border-radius: 50%;
+    object-fit: cover;
+    height: 100px;
+}

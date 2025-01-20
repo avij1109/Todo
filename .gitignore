@@ -27,3 +27,4 @@ dist-ssr
 .firebase/
 firebase-debug.log
 .firebaserc
+firebase.ts

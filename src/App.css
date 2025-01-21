@@ -1,30 +1,54 @@
-.auth-container {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .auth-buttons button,
-  .user-info button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 4px;
-    margin: 10px;
-  }
-  
-  .auth-buttons button:hover,
-  .user-info button:hover {
-    background-color: #0056b3;
-  }
-  
-  .user-info {
-    margin-top: 20px;
-  }
-  
-  .user-info p {
-    font-size: 18px;
-  }
-  
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+
+.nav-items {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 12px;
+  color: white;
+  background-color: #0056b3;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #003d80;
+}
+
+.logout-btn {
+  padding: 8px 12px;
+  background-color: red;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: darkred;
+}
+
+.username {
+  margin-right: 10px;
+  font-size: 1rem;
+}

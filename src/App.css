@@ -1,0 +1,30 @@
+.auth-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .auth-buttons button,
+  .user-info button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    margin: 10px;
+  }
+  
+  .auth-buttons button:hover,
+  .user-info button:hover {
+    background-color: #0056b3;
+  }
+  
+  .user-info {
+    margin-top: 20px;
+  }
+  
+  .user-info p {
+    font-size: 18px;
+  }
+  

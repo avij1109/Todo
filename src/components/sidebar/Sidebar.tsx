@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link for navigation
 import './Sidebar.css';
 
 interface SidebarProps {
@@ -11,8 +12,13 @@ const Sidebar: React.FC<SidebarProps> = ({ username, onLogout }) => {
     <div className="sidebar">
       <h3>Welcome, {username}</h3>
       <ul>
-        <li>Create New Task</li>
-        <li>View All Tasks</li>
+        {/* Use Link for navigation */}
+        <li>
+          <Link to="/create-task">Create New Task</Link>
+        </li>
+        <li>
+          <Link to="/view-tasks">View All Tasks</Link>
+        </li>
       </ul>
       <button onClick={onLogout}>Sign Out</button>
     </div>

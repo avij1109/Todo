@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import './CreateTask.css'
 interface Task {
   id: number;
   title: string;

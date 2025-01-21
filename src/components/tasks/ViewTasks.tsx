@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './ViewTasks.css'
 interface Task {
   id: number;
   title: string;

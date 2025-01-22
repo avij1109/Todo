@@ -43,7 +43,9 @@
   color: white;
   cursor: pointer;
 }
-
+.a{
+  border: rebeccapurplea
+}
 .logout-btn:hover {
   background-color: darkred;
 }

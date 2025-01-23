@@ -1,50 +1,104 @@
 .view-tasks {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   min-height: 100vh;
-  background-color: #f7f8fa;
-  padding: 20px;
+  background-color: #f9fafb;
+  padding: 40px;
+  font-family: "Inter", sans-serif;
 }
 
 h2 {
-  font-size: 28px;
-  color: #333;
+  font-size: 32px;
+  color: #2d3748;
   margin-bottom: 30px;
   text-align: center;
 }
 
 .task-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 800px;
 }
 
-.task-card {
-  background-color: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.task-item {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   padding: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.task-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+.task-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
 }
 
-.task-title {
-  font-size: 18px;
-  color: #333;
+.task-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
   margin-bottom: 10px;
-  font-weight: bold;
 }
 
-.task-description {
-  font-size: 14px;
-  color: #555;
-  line-height: 1.5;
+.task-row:last-child {
+  margin-bottom: 0;
+}
+
+.task-label {
+  font-size: 16px;
+  color: #4c51bf; /* Accent color for labels */
+  font-weight: bold;
+  flex-shrink: 0; /* Prevents label from shrinking */
+  min-width: 80px; /* Ensures alignment */
+}
+
+.task-content {
+  font-size: 16px;
+  color: #1a202c;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.no-tasks {
+  font-size: 18px;
+  color: #718096;
+  text-align: center;
+  margin-top: 20px;
+}
+
+button {
+  background-color: #4c51bf;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #434190;
+}
+
+@media (max-width: 768px) {
+  .task-list {
+    padding: 0 20px;
+  }
+
+  .task-row {
+    flex-direction: column; /* Stack labels and content on smaller screens */
+  }
+
+  .task-label {
+    margin-bottom: 5px; /* Add spacing between label and content */
+  }
 }

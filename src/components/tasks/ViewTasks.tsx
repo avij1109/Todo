@@ -1,42 +1,68 @@
-import type React from "react"
-import { motion } from "framer-motion"
-import "./ViewTasks.css"
+import React, { useEffect, useState } from "react";
+import { db } from "../../../firebase";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import "./ViewTasks.css";
 
 interface Task {
-  id: number
-  title: string
-  description: string
+  id: string;
+  title: string;
+  description: string;
 }
 
-interface ViewTasksProps {
-  tasks: Task[]
-}
+const ViewTasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
+  const [loading, setLoading] = useState(true);
 
-const ViewTasks: React.FC<ViewTasksProps> = ({ tasks }) => {
+  useEffect(() => {
+    if (!tasks.length) {
+      const fetchTasks = async () => {
+        try {
+          const tasksRef = collection(db, "tasks");
+          const q = query(tasksRef, orderBy("createdAt", "desc"));
+          const snapshot = await getDocs(q);
+          const fetchedTasks = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          })) as Task[];
+          console.log("Fetched tasks:", fetchedTasks);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching tasks:", error);
+        }
+      };
+
+      fetchTasks();
+    } else {
+      setLoading(false);
+    }
+  }, [tasks]);
+
+  if (loading) {
+    return <p>Loading tasks...</p>;
+  }
+
   return (
-    <motion.div className="view-tasks" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-      <h2>All Tasks</h2>
-      <div className="task-list">
-        {tasks.length === 0 ? (
-          <p>No tasks available. Create a task to get started.</p>
-        ) : (
-          tasks.map((task) => (
-            <motion.div
-              key={task.id}
-              className="task-card"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <h3 className="task-title">{task.title}</h3>
-              <p className="task-description">{task.description}</p>
-            </motion.div>
-          ))
-        )}
-      </div>
-    </motion.div>
-  )
-}
+    <div className="view-tasks">
+      <h2>Your Tasks</h2>
+      {tasks.length === 0 ? (
+        <p className="no-tasks">No tasks available. Create a new task!</p>
+      ) : (
+        <div className="task-list">
+          {tasks.map((task) => (
+            <div key={task.id} className="task-item">
+              <div className="task-row">
+                <span className="task-label">Task:</span>
+                <span className="task-content">{task.title}</span>
+              </div>
+              <div className="task-row">
+                <span className="task-label">Description:</span>
+                <span className="task-content">{task.description}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
-export default ViewTasks
-
+export default ViewTasks;

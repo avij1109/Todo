@@ -1,54 +1,52 @@
-import React, { useEffect, useState } from "react"
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
-import { auth } from "../firebase"
-import { onAuthStateChanged, signOut } from "firebase/auth"
-import Header from "./components/header/Header"
-import Sidebar from "./components/sidebar/Sidebar"
-import Login from "./pages/Login"
-import Signup from "./pages/Signup"
-import CreateTask from "./components/tasks/CreateTask"
-import ViewTasks from "./components/tasks/ViewTasks"
-import Footer from "../src/components/footer/Footer"
-import "./App.css"
-import Intro from "./components/intro/Intro"
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { auth } from "../firebase";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import Header from "./components/header/Header";
+import Sidebar from "./components/sidebar/Sidebar";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import CreateTask from "./components/tasks/CreateTask";
+import ViewTasks from "./components/tasks/ViewTasks";
+import Footer from "../src/components/footer/Footer";
+import "./App.css";
+import Intro from "./components/intro/Intro";
 
-const App = () => {
-  const [user, setUser] = useState<any>(null)
-  const [tasks, setTasks] = useState<any[]>([])
+const App: React.FC = () => {
+  const [user, setUser] = useState<any>(null);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser(user)
+        setUser(user);
       } else {
-        setUser(null)
+        setUser(null);
       }
-    })
+    });
 
-    return () => unsubscribe()
-  }, [])
+    return () => unsubscribe();
+  }, []);
 
   const handleSignOut = async () => {
     try {
-      await signOut(auth)
-      setUser(null)
+      await signOut(auth);
+      setUser(null);
     } catch (error: any) {
-      console.error("Sign out error:", error.message)
+      console.error("Sign out error:", error.message);
     }
-  }
+  };
 
-  const addTask = (task: any) => {
-    setTasks([...tasks, task])
-  }
+  const addTask = (task: Task) => {
+    setTasks([...tasks, task]);
+  };
 
   return (
     <Router>
       <div className="app-container">
         <Header user={user} onLogout={handleSignOut} />
-
         <div className="main-content">
           {user && <Sidebar username={user.displayName || user.email} onLogout={handleSignOut} />}
-
           <div className="content">
             <Routes>
               <Route path="/" element={user ? <Navigate to="/view-tasks" /> : <Intro />} />
@@ -62,12 +60,16 @@ const App = () => {
             </Routes>
           </div>
         </div>
-
         <Footer />
       </div>
     </Router>
-  )
+  );
+};
+
+interface Task {
+  id: string;
+  title: string;
+  description: string;
 }
 
-export default App
-
+export default App;

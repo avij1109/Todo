@@ -1,33 +1,37 @@
-import type React from "react"
-import { useState } from "react"
-import { motion } from "framer-motion"
-import "./CreateTask.css"
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { db } from "../../../firebase";
+import { collection, addDoc } from "firebase/firestore";
+import "./CreateTask.css";
 
-interface Task {
-  id: number
-  title: string
-  description: string
-}
+const CreateTask: React.FC<{ onAddTask: (task: Task) => void }> = ({ onAddTask }) => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false);
 
-interface CreateTaskProps {
-  onAddTask: (task: Task) => void
-}
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
 
-const CreateTask: React.FC<CreateTaskProps> = ({ onAddTask }) => {
-  const [title, setTitle] = useState("")
-  const [description, setDescription] = useState("")
+    try {
+      const newTask = {
+        title,
+        description,
+        createdAt: new Date().toISOString(),
+      };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    const newTask = {
-      id: Date.now(),
-      title,
-      description,
+      const docRef = await addDoc(collection(db, "tasks"), newTask);
+      onAddTask({ id: docRef.id, ...newTask });
+      setTitle("");
+      setDescription("");
+      alert("Task created successfully!");
+    } catch (error) {
+      console.error("Error adding task:", error);
+      alert("Failed to create task. Please try again.");
+    } finally {
+      setLoading(false);
     }
-    onAddTask(newTask)
-    setTitle("")
-    setDescription("")
-  }
+  };
 
   return (
     <motion.div
@@ -63,14 +67,20 @@ const CreateTask: React.FC<CreateTaskProps> = ({ onAddTask }) => {
             className="create-task-btn"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            disabled={loading}
           >
-            Create Task
+            {loading ? "Creating..." : "Create Task"}
           </motion.button>
         </form>
       </div>
     </motion.div>
-  )
+  );
+};
+
+interface Task {
+  id: string;
+  title: string;
+  description: string;
 }
 
-export default CreateTask
-
+export default CreateTask;

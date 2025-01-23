@@ -1,3 +1,20 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  position: relative;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -43,9 +60,7 @@
   color: white;
   cursor: pointer;
 }
-.a{
-  border: rebeccapurplea
-}
+
 .logout-btn:hover {
   background-color: darkred;
 }
@@ -54,6 +69,4 @@
   margin-right: 10px;
   font-size: 1rem;
 }
-.a{
-  background-color: saddlebrown;
-}
+

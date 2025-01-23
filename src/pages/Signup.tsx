@@ -34,6 +34,7 @@ const Signup = () => {
       setError(error.message);
     }
   };
+  
 
   return (
     <div className="page-container">

@@ -10,6 +10,7 @@ import CreateTask from "./components/tasks/CreateTask"
 import ViewTasks from "./components/tasks/ViewTasks"
 import Footer from "../src/components/footer/Footer"
 import "./App.css"
+import Intro from "./components/intro/Intro"
 
 const App = () => {
   const [user, setUser] = useState<any>(null)
@@ -50,6 +51,7 @@ const App = () => {
 
           <div className="content">
             <Routes>
+              <Route path="/" element={user ? <Navigate to="/view-tasks" /> : <Intro />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route

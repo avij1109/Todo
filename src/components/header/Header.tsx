@@ -13,7 +13,7 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout }) => {
     <div className="bar">
       <img src={A || "/placeholder.svg"} className="logo" alt="Logo" />
       <nav className="nav-bar">
-        <Link to="/">Welcome to our platform</Link>
+        <Link to="/">TODO</Link>
       </nav>
 
       <div className="buttons">

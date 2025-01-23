@@ -50,12 +50,10 @@ const ViewTasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
           {tasks.map((task) => (
             <div key={task.id} className="task-item">
               <div className="task-row">
-                <span className="task-label">Task:</span>
-                <span className="task-content">{task.title}</span>
+                <p className="task-title">{task.title}</p>
               </div>
               <div className="task-row">
-                <span className="task-label">Description:</span>
-                <span className="task-content">{task.description}</span>
+                <p className="task-description">{task.description}</p>
               </div>
             </div>
           ))}

@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
         width: "100%",
       }}
     >
-      <p>&copy; 2023 Todo App. All rights reserved.</p>
+      <p>&copy; 2025 Todo App. All rights reserved.</p>
     </footer>
   )
 }

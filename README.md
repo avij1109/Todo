@@ -1,50 +1,124 @@
-# React + TypeScript + Vite
+To-Do App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the To-Do App repository! This app helps you organize and manage your tasks effectively using Firebase as the backend for seamless data management.
 
-Currently, two official plugins are available:
+Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Add Tasks: Create new tasks to keep track of your to-do list.
 
-## Expanding the ESLint configuration
+Update Tasks: Edit the details of your tasks.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Delete Tasks: Remove tasks you no longer need.
 
-- Configure the top-level `parserOptions` property like this:
+Real-Time Updates: Leverages Firebase to ensure tasks are updated in real time across all devices.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Tech Stack
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Frontend: React (or your chosen frontend framework)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Backend: Firebase (Firestore for database, Authentication, Hosting)
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Styling: CSS/TailwindCSS
+
+Prerequisites
+
+Before running this app, ensure you have the following installed:
+
+Node.js (v14 or later)
+
+npm or yarn
+
+Firebase account with a configured project
+
+Installation
+
+Clone this repository:
+
+git clone https://github.com/avij1109/todo-app.git
+cd todo-app
+
+Install dependencies:
+
+npm install
+
+Set up Firebase:
+
+Go to Firebase Console, create a project, and add a web app.
+
+Copy the Firebase config object and replace the placeholder in src/firebaseConfig.js.
+
+Start the development server:
+
+npm start
+
+Firebase Configuration
+
+Make sure to set up the following Firebase services:
+
+Firestore Database: For storing task data.
+
+Authentication (optional): To enable user-specific task lists.
+
+Hosting: To deploy your app.
+
+Example firebaseConfig.js file:
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID",
+};
+
+export default firebaseConfig;
+
+Screenshots
+
+Task List: 
+
+Add Task: 
+
+Roadmap
+
+Add due dates for tasks
+
+Introduce priority levels
+
+Implement user authentication
+
+Add dark mode
+
+Contributing
+
+Contributions are welcome! Here's how you can help:
+
+Fork this repository
+
+Create a new branch:
+
+git checkout -b feature-name
+
+Make your changes and commit them:
+
+git commit -m "Added feature-name"
+
+Push to your fork:
+
+git push origin feature-name
+
+Create a pull request
+
+License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+Acknowledgements
+
+Firebase
+
+Open-source community
+
+Feel free to reach out via GitHub if you have any questions or suggestions!
+

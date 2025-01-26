@@ -1,43 +1,70 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../../../firebase";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
-import "./ViewTasks.css";
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 interface Task {
   id: string;
   title: string;
   description: string;
+  createdAt: string; // Convert to string after formatting
+  userId: string;
 }
 
-const ViewTasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
+const ViewTasks: React.FC = () => {
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const auth = getAuth();
+  const currentUser = auth.currentUser;
 
   useEffect(() => {
-    if (!tasks.length) {
-      const fetchTasks = async () => {
-        try {
-          const tasksRef = collection(db, "tasks");
-          const q = query(tasksRef, orderBy("createdAt", "desc"));
-          const snapshot = await getDocs(q);
-          const fetchedTasks = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          })) as Task[];
-          console.log("Fetched tasks:", fetchedTasks);
-          setLoading(false);
-        } catch (error) {
-          console.error("Error fetching tasks:", error);
-        }
-      };
+    const fetchTasks = async () => {
+      if (!currentUser) {
+        setLoading(false); // Avoid indefinite loading
+        return;
+      }
 
-      fetchTasks();
-    } else {
-      setLoading(false);
-    }
-  }, [tasks]);
+      try {
+        const tasksRef = collection(db, "tasks");
+        const q = query(
+          tasksRef,
+          where("userId", "==", currentUser.uid),
+          orderBy("createdAt", "desc")
+        );
+        const snapshot = await getDocs(q);
+
+        const fetchedTasks = snapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            title: data.title || "Untitled",
+            description: data.description || "No description",
+            createdAt: data.createdAt?.toDate().toLocaleString() || "Unknown",
+            userId: data.userId,
+          } as Task;
+        });
+
+        setTasks(fetchedTasks);
+      } catch (err) {
+        const errorMessage = (err instanceof Error) ? err.message : "An unknown error occurred.";
+        console.error("Error fetching tasks:", errorMessage);
+        setError(errorMessage);
+      }
+      finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTasks();
+  }, [currentUser]);
 
   if (loading) {
     return <p>Loading tasks...</p>;
+  }
+
+  if (error) {
+    return <p className="error-message">{error}</p>;
   }
 
   return (
@@ -54,6 +81,9 @@ const ViewTasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
               </div>
               <div className="task-row">
                 <p className="task-description">{task.description}</p>
+              </div>
+              <div className="task-row">
+                <small>Created At: {task.createdAt}</small>
               </div>
             </div>
           ))}

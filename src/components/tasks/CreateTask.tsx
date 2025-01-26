@@ -1,23 +1,43 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { db } from "../../../firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import "./CreateTask.css";
+
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  createdAt: string | Timestamp; // To accommodate Firestore Timestamps
+  userId: string;
+}
 
 const CreateTask: React.FC<{ onAddTask: (task: Task) => void }> = ({ onAddTask }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
+  const auth = getAuth();
+  const currentUser = auth.currentUser;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
+    if (!currentUser) {
+      alert("You must be logged in to create a task.");
+      setLoading(false);
+      return;
+    }
+
+    
+
     try {
       const newTask = {
         title,
         description,
-        createdAt: new Date().toISOString(),
+        createdAt: Timestamp.fromDate(new Date()), // Firestore Timestamp
+        userId: currentUser.uid,
       };
 
       const docRef = await addDoc(collection(db, "tasks"), newTask);
@@ -25,8 +45,9 @@ const CreateTask: React.FC<{ onAddTask: (task: Task) => void }> = ({ onAddTask }
       setTitle("");
       setDescription("");
       alert("Task created successfully!");
-    } catch (error) {
-      console.error("Error adding task:", error);
+    } catch (err) {
+      const errorMessage = (err instanceof Error) ? err.message : "An unknown error occurred.";
+      console.error("Error adding task:", errorMessage);
       alert("Failed to create task. Please try again.");
     } finally {
       setLoading(false);
@@ -44,22 +65,26 @@ const CreateTask: React.FC<{ onAddTask: (task: Task) => void }> = ({ onAddTask }
         <h2>Create New Task</h2>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
-            <label>Task Title:</label>
+            <label htmlFor="task-title">Task Title:</label>
             <input
+              id="task-title"
               type="text"
               placeholder="Enter task title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
+              aria-label="Task Title"
             />
           </div>
           <div className="input-group">
-            <label>Task Description:</label>
+            <label htmlFor="task-description">Task Description:</label>
             <textarea
+              id="task-description"
               placeholder="Enter task description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
+              aria-label="Task Description"
             />
           </div>
           <motion.button
@@ -76,11 +101,5 @@ const CreateTask: React.FC<{ onAddTask: (task: Task) => void }> = ({ onAddTask }
     </motion.div>
   );
 };
-
-interface Task {
-  id: string;
-  title: string;
-  description: string;
-}
 
 export default CreateTask;

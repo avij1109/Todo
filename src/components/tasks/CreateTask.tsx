@@ -23,38 +23,39 @@ const CreateTask: React.FC<{ onAddTask: (task: Task) => void }> = ({ onAddTask }
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
+  
     if (!currentUser) {
-      console.error("No authenticated user found.");
       alert("You must be logged in to create a task.");
       setLoading(false);
       return;
     }
-
-    const newTask = {
-      title: title.trim(),
-      description: description.trim(),
-      createdAt: Timestamp.fromDate(new Date()), // Firestore Timestamp
-      userId: currentUser.uid,
-    };
-
-    console.log("Creating task with data:", newTask);
-
+  
     try {
+      const newTask = {
+        title,
+        description,
+        createdAt: Timestamp.fromDate(new Date()),
+        userId: currentUser.uid,  // This ensures the task is associated with the authenticated user
+      };
+  
+      // Log the task data to the console before sending to Firestore
+      console.log("New Task Object:", newTask);
+  
       const docRef = await addDoc(collection(db, "tasks"), newTask);
       onAddTask({ id: docRef.id, ...newTask });
       setTitle("");
       setDescription("");
       alert("Task created successfully!");
     } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : "An unknown error occurred.";
+      const errorMessage = err instanceof Error ? err.message : "An unknown error occurred.";
       console.error("Error adding task:", errorMessage);
-      alert(`Failed to create task. Error: ${errorMessage}`);
+      alert("Failed to create task. Please try again.");
     } finally {
       setLoading(false);
     }
   };
+  
+
 
   return (
     <motion.div

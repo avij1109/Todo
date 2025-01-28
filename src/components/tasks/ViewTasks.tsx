@@ -7,7 +7,7 @@ interface Task {
   id: string;
   title: string;
   description: string;
-  createdAt: string; // Convert to string after formatting
+  createdAt: string; // The formatted date string for display
   userId: string;
 }
 
@@ -40,18 +40,24 @@ const ViewTasks: React.FC = () => {
             id: doc.id,
             title: data.title || "Untitled",
             description: data.description || "No description",
-            createdAt: data.createdAt?.toDate().toLocaleString() || "Unknown",
+            // Convert ISO string to formatted date string
+            createdAt: data.createdAt
+              ? new Date(data.createdAt).toLocaleString("en-US", {
+                  dateStyle: "medium",
+                  timeStyle: "short",
+                })
+              : "Unknown",
             userId: data.userId,
           } as Task;
         });
 
         setTasks(fetchedTasks);
       } catch (err) {
-        const errorMessage = (err instanceof Error) ? err.message : "An unknown error occurred.";
+        const errorMessage =
+          err instanceof Error ? err.message : "An unknown error occurred.";
         console.error("Error fetching tasks:", errorMessage);
         setError(errorMessage);
-      }
-      finally {
+      } finally {
         setLoading(false);
       }
     };

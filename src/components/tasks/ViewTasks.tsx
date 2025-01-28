@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../../firebase";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import "./ViewTasks.css";
 
 interface Task {
   id: string;
@@ -40,7 +41,6 @@ const ViewTasks: React.FC = () => {
             id: doc.id,
             title: data.title || "Untitled",
             description: data.description || "No description",
-            // Convert ISO string to formatted date string
             createdAt: data.createdAt
               ? new Date(data.createdAt).toLocaleString("en-US", {
                   dateStyle: "medium",
@@ -82,15 +82,11 @@ const ViewTasks: React.FC = () => {
         <div className="task-list">
           {tasks.map((task) => (
             <div key={task.id} className="task-item">
-              <div className="task-row">
+              <div className="task-content">
                 <p className="task-title">{task.title}</p>
-              </div>
-              <div className="task-row">
                 <p className="task-description">{task.description}</p>
               </div>
-              <div className="task-row">
-                <small>Created At: {task.createdAt}</small>
-              </div>
+              <small className="task-date">{task.createdAt}</small>
             </div>
           ))}
         </div>

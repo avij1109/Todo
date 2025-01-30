@@ -8,7 +8,7 @@ interface Task {
   id: string;
   title: string;
   description: string;
-  createdAt: string; // The formatted date string for display
+  createdAt: string; // Formatted date string
   userId: string;
 }
 
@@ -22,7 +22,7 @@ const ViewTasks: React.FC = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       if (!currentUser) {
-        setLoading(false); // Avoid indefinite loading
+        setLoading(false);
         return;
       }
 
@@ -37,16 +37,29 @@ const ViewTasks: React.FC = () => {
 
         const fetchedTasks = snapshot.docs.map((doc) => {
           const data = doc.data();
+          let formattedDate = "Unknown";
+
+          if (data.createdAt) {
+            if (data.createdAt.seconds) {
+              // ✅ Convert Firestore Timestamp to readable format
+              formattedDate = new Date(data.createdAt.seconds * 1000).toLocaleString("en-US", {
+                dateStyle: "medium",
+                timeStyle: "short",
+              });
+            } else if (typeof data.createdAt === "string") {
+              // 🔹 Convert old string dates to valid format
+              formattedDate = new Date(Date.parse(data.createdAt)).toLocaleString("en-US", {
+                dateStyle: "medium",
+                timeStyle: "short",
+              });
+            }
+          }
+
           return {
             id: doc.id,
             title: data.title || "Untitled",
             description: data.description || "No description",
-            createdAt: data.createdAt
-              ? new Date(data.createdAt).toLocaleString("en-US", {
-                  dateStyle: "medium",
-                  timeStyle: "short",
-                })
-              : "Unknown",
+            createdAt: formattedDate,
             userId: data.userId,
           } as Task;
         });
@@ -72,6 +85,7 @@ const ViewTasks: React.FC = () => {
   if (error) {
     return <p className="error-message">{error}</p>;
   }
+  
 
   return (
     <div className="view-tasks">

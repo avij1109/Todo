@@ -6,8 +6,8 @@ import Header from "./components/header/Header";
 import Sidebar from "./components/sidebar/Sidebar";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import CreateTask from "./components/tasks/CreateTask";
-import ViewTasks from "./components/tasks/ViewTasks";
+import CreateTask from "./components/tasks/Create/CreateTask";
+import ViewTasks from "./components/tasks/View/ViewTasks";
 import Footer from "../src/components/footer/Footer";
 import "./App.css";
 import Intro from "./components/intro/Intro";
@@ -15,7 +15,6 @@ import Intro from "./components/intro/Intro";
 const App: React.FC = () => {
   const [user, setUser] = useState<any>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {

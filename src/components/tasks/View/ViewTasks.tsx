@@ -3,12 +3,14 @@ import { db } from "../../../../firebase";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import "./ViewTasks.css";
+import { deleteDoc, doc } from "firebase/firestore";
+import trash from "../../../assets/trash.png";
 
 interface Task {
   id: string;
   title: string;
   description: string;
-  createdAt: string; // Formatted date string
+  createdAt: string;
   userId: string;
 }
 
@@ -18,6 +20,23 @@ const ViewTasks: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const auth = getAuth();
   const currentUser = auth.currentUser;
+
+  // Tooltip State
+  const [tooltip, setTooltip] = useState<{ visible: boolean; x: number; y: number }>({
+    visible: false,
+    x: 0,
+    y: 0,
+  });
+
+  // Function to Show Tooltip
+  const showTooltip = (e: React.MouseEvent) => {
+    setTooltip({ visible: true, x: e.clientX, y: e.clientY });
+  };
+
+  // Function to Hide Tooltip
+  const hideTooltip = () => {
+    setTooltip({ visible: false, x: 0, y: 0 });
+  };
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -41,13 +60,11 @@ const ViewTasks: React.FC = () => {
 
           if (data.createdAt) {
             if (data.createdAt.seconds) {
-              // ✅ Convert Firestore Timestamp to readable format
               formattedDate = new Date(data.createdAt.seconds * 1000).toLocaleString("en-US", {
                 dateStyle: "medium",
                 timeStyle: "short",
               });
             } else if (typeof data.createdAt === "string") {
-              // 🔹 Convert old string dates to valid format
               formattedDate = new Date(Date.parse(data.createdAt)).toLocaleString("en-US", {
                 dateStyle: "medium",
                 timeStyle: "short",
@@ -85,7 +102,6 @@ const ViewTasks: React.FC = () => {
   if (error) {
     return <p className="error-message">{error}</p>;
   }
-  
 
   return (
     <div className="view-tasks">
@@ -99,10 +115,33 @@ const ViewTasks: React.FC = () => {
               <div className="task-content">
                 <p className="task-title">{task.title}</p>
                 <p className="task-description">{task.description}</p>
+                <button
+                  className="delete"
+                  onMouseEnter={showTooltip}  // Show tooltip when hovering starts
+                  onMouseMove={showTooltip}   // Update position as mouse moves
+                  onMouseLeave={hideTooltip}  // Hide tooltip when mouse leaves
+                >
+                  <img src={trash} alt="Delete" className="trash" />
+                </button>
               </div>
               <small className="task-date">{task.createdAt}</small>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Tooltip UI */}
+      {tooltip.visible && (
+        <div
+          className="tooltip"
+          style={{
+            position: "fixed",
+            top: `${tooltip.y + 10}px`,
+            left: `${tooltip.x + 10}px`,
+            display: "block",
+          }}
+        >
+          Delete Task
         </div>
       )}
     </div>

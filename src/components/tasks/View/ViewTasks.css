@@ -98,7 +98,28 @@ button:hover {
     padding: 10px;
   }
 }
-.a{
-  
+.trash{
+  color: #d93025;
+  cursor: pointer;
+  transition: color 0.2s;
+  max-width: 50px;
+  max-height: 50px;
+
+}
+.tooltip {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none; /* Prevents blocking mouse interactions */
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
 }
 
+.tooltip.show {
+  opacity: 1;
+}

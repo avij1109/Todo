@@ -19,6 +19,9 @@ const Sidebar: React.FC<SidebarProps> = ({ username, onLogout }) => {
         <li>
           <Link to="/view-tasks">View All Tasks</Link>
         </li>
+        <li>
+          <Link to="/calender">Calender</Link>
+        </li>
       </ul>
       <button onClick={onLogout}>Sign Out</button>
     </div>

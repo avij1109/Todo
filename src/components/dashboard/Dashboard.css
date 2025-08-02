@@ -1,283 +1,69 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+/* Dashboard Styles - Working within App Layout */
 
-/* Velocity Todo App Design System - Exact from Lovable AI */
-
-:root {
-  /* Core Colors */
-  --background: 240 10% 3.9%;
-  --foreground: 0 0% 98%;
-
-  /* Card & Surface */
-  --card: 240 10% 3.9%;
-  --card-foreground: 0 0% 98%;
-
-  /* Primary Gradient System */
-  --primary: 250 100% 60%;
-  --primary-foreground: 0 0% 98%;
-  --primary-glow: 280 100% 70%;
-  
-  /* Velocity Brand Colors */
-  --velocity-purple: 250 100% 60%;
-  --velocity-pink: 320 100% 65%;
-  --velocity-blue: 220 100% 65%;
-  --velocity-green: 140 100% 60%;
-  --velocity-orange: 25 100% 65%;
-  
-  /* Priority Colors */
-  --priority-high: 0 85% 60%;
-  --priority-medium: 35 100% 55%;
-  --priority-low: 140 60% 55%;
-  
-  /* Backgrounds & Surfaces */
-  --surface: 240 10% 6%;
-  --surface-elevated: 240 8% 8%;
-  --surface-glass: 240 10% 12%;
-  
-  /* Interactive Elements */
-  --interactive: 250 100% 60%;
-  --interactive-hover: 250 100% 65%;
-  --interactive-pressed: 250 100% 55%;
-  
-  /* Text & Content */
-  --text-primary: 0 0% 98%;
-  --text-secondary: 240 5% 65%;
-  --text-muted: 240 5% 45%;
-  
-  /* Borders & Dividers */
-  --border: 240 8% 15%;
-  --border-elevated: 240 8% 20%;
-  
-  /* Input & Form */
-  --input: 240 8% 12%;
-  --input-border: 240 8% 18%;
-  --ring: 250 100% 60%;
-
-  /* Status Colors */
-  --success: 140 100% 60%;
-  --warning: 35 100% 55%;
-  --error: 0 85% 60%;
-  
-  /* Shadows & Effects */
-  --shadow-subtle: 0 1px 3px hsla(240, 10%, 0%, 0.1);
-  --shadow-medium: 0 4px 12px hsla(240, 10%, 0%, 0.15);
-  --shadow-strong: 0 12px 24px hsla(240, 10%, 0%, 0.25);
-  --shadow-glow: 0 0 20px hsla(var(--primary), 0.3);
-  
-  /* Gradients */
-  --gradient-primary: linear-gradient(135deg, hsl(var(--velocity-purple)), hsl(var(--velocity-pink)));
-  --gradient-secondary: linear-gradient(135deg, hsl(var(--velocity-blue)), hsl(var(--velocity-green)));
-  --gradient-surface: linear-gradient(135deg, hsl(var(--surface)), hsl(var(--surface-elevated)));
-  --gradient-glass: linear-gradient(135deg, hsla(var(--surface-glass), 0.8), hsla(var(--surface-glass), 0.4));
-  
-  /* Animation Variables */
-  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  --animation-scale: scale(1.02);
-  
-  --radius: 0.75rem;
+/* Dashboard Container */
+.dashboard-container {
+  padding: 2rem;
+  max-width: 100%;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  background: var(--gradient-surface);
+/* Basic fallback styles to ensure rendering */
+.min-h-screen {
   min-height: 100vh;
-  color: hsl(var(--text-primary));
-  line-height: 1.6;
-  overflow-x: hidden;
 }
 
-/* App Container */
-.app-container {
-  min-height: 100vh;
-  background: hsl(var(--background));
-  position: relative;
-}
-
-/* Utility Classes */
 .bg-gradient-surface {
-  background: var(--gradient-surface);
-}
-
-.bg-gradient-primary {
-  background: var(--gradient-primary);
-}
-
-.bg-gradient-secondary {
-  background: var(--gradient-secondary);
-}
-
-.bg-surface {
-  background: hsl(var(--surface));
-}
-
-.bg-surface-elevated {
-  background: hsl(var(--surface-elevated));
-}
-
-.bg-velocity-purple {
-  background: hsl(var(--velocity-purple));
-}
-
-.bg-velocity-pink {
-  background: hsl(var(--velocity-pink));
-}
-
-.bg-velocity-blue {
-  background: hsl(var(--velocity-blue));
-}
-
-.bg-velocity-green {
-  background: hsl(var(--velocity-green));
-}
-
-.bg-velocity-orange {
-  background: hsl(var(--velocity-orange));
-}
-
-.text-text-primary {
-  color: hsl(var(--text-primary));
-}
-
-.text-text-secondary {
-  color: hsl(var(--text-secondary));
-}
-
-.text-text-muted {
-  color: hsl(var(--text-muted));
-}
-
-.text-status-success {
-  color: hsl(var(--success));
-}
-
-.text-status-warning {
-  color: hsl(var(--warning));
-}
-
-.text-status-error {
-  color: hsl(var(--error));
-}
-
-.border-border {
-  border-color: hsl(var(--border));
-}
-
-.border-border-elevated {
-  border-color: hsl(var(--border-elevated));
-}
-
-.shadow-subtle {
-  box-shadow: var(--shadow-subtle);
-}
-
-.shadow-medium {
-  box-shadow: var(--shadow-medium);
-}
-
-.shadow-strong {
-  box-shadow: var(--shadow-strong);
-}
-
-.shadow-glow {
-  box-shadow: var(--shadow-glow);
-}
-
-/* Velocity Component Styles */
-.velocity-gradient {
-  background: var(--gradient-primary);
+  background: linear-gradient(135deg, hsl(240, 10%, 6%), hsl(240, 8%, 8%));
+  color: #ffffff;
 }
 
 .velocity-glass {
-  background: var(--gradient-glass);
+  background: linear-gradient(135deg, hsla(240, 10%, 12%, 0.8), hsla(240, 10%, 12%, 0.4));
   backdrop-filter: blur(12px);
-  border: 1px solid hsl(var(--border-elevated));
+  border: 1px solid hsl(240, 8%, 20%);
 }
 
-.velocity-surface {
-  background: hsl(var(--surface));
-  border: 1px solid hsl(var(--border));
+.border-border-elevated {
+  border-color: hsl(240, 8%, 20%);
 }
 
-.velocity-surface-elevated {
-  background: hsl(var(--surface-elevated));
-  border: 1px solid hsl(var(--border-elevated));
+.text-text-primary {
+  color: hsl(0, 0%, 98%);
 }
 
-.velocity-shadow-glow {
-  box-shadow: var(--shadow-glow);
+.text-text-secondary {
+  color: hsl(240, 5%, 65%);
 }
 
-.velocity-transition {
-  transition: var(--transition-smooth);
+.text-text-muted {
+  color: hsl(240, 5%, 45%);
 }
 
-.velocity-spring {
-  transition: var(--transition-spring);
+.bg-gradient-primary {
+  background: linear-gradient(135deg, hsl(250, 100%, 60%), hsl(320, 100%, 65%));
 }
 
-.velocity-hover:hover {
-  transform: var(--animation-scale);
+.shadow-strong {
+  box-shadow: 0 12px 24px hsla(240, 10%, 0%, 0.25);
 }
 
-/* Priority Indicators */
-.priority-high {
-  border-left: 4px solid hsl(var(--priority-high));
+.shadow-medium {
+  box-shadow: 0 4px 12px hsla(240, 10%, 0%, 0.15);
 }
 
-.priority-medium {
-  border-left: 4px solid hsl(var(--priority-medium));
-}
-
-.priority-low {
-  border-left: 4px solid hsl(var(--priority-low));
-}
-
-/* Loading Spinner */
-.loading-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: hsl(var(--background));
-}
-
+/* Loading spinner */
 .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid hsl(var(--border));
-  border-top: 3px solid hsl(var(--text-primary));
+  border: 3px solid hsla(240, 5%, 65%, 0.3);
+  border-top: 3px solid hsl(250, 100%, 60%);
   border-radius: 50%;
   animation: spin 1s linear infinite;
+  margin: 2rem auto;
 }
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-}
-
-/* Dashboard Layout */
-.dashboard-layout {
-  display: flex;
-  min-height: calc(100vh - 80px);
-  background: hsl(var(--background));
-}
-
-.main-content-area {
-  flex: 1;
-  padding: 2rem;
-  overflow-y: auto;
-}
-
-.sidebar-area {
-  width: 280px;
-  background: hsl(var(--surface-elevated));
-  border-left: 1px solid hsl(var(--border-elevated));
 }
 
 /* Container */
@@ -449,6 +235,11 @@ body {
 .py-20 {
   padding-top: 5rem;
   padding-bottom: 5rem;
+}
+
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .mb-3 {
@@ -1518,4 +1309,4 @@ body {
     min-height: 50vh;
     padding: 2rem 0;
   }
-}
+} 

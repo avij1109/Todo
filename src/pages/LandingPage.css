@@ -1,0 +1,565 @@
+/* Velocity Todo App Design System - Exact Copy from Lovable AI */
+
+/* Base Styles */
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Background */
+.bg-gradient-surface {
+  background: linear-gradient(135deg, hsl(240, 10%, 6%), hsl(240, 8%, 8%));
+  color: #ffffff;
+}
+
+/* Glass Morphism */
+.velocity-glass {
+  background: linear-gradient(135deg, hsla(240, 10%, 12%, 0.8), hsla(240, 10%, 12%, 0.4));
+  backdrop-filter: blur(12px);
+  border: 1px solid hsl(240, 8%, 20%);
+}
+
+/* Borders */
+.border-border-elevated {
+  border-color: hsl(240, 8%, 20%);
+}
+
+/* Text Colors */
+.text-text-primary {
+  color: hsl(0, 0%, 98%);
+}
+
+.text-text-secondary {
+  color: hsl(240, 5%, 65%);
+}
+
+.text-text-muted {
+  color: hsl(240, 5%, 45%);
+}
+
+/* Gradients */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, hsl(250, 100%, 60%), hsl(320, 100%, 65%));
+}
+
+.bg-gradient-secondary {
+  background: linear-gradient(135deg, hsl(220, 100%, 65%), hsl(140, 100%, 60%));
+}
+
+/* Buttons */
+.btn-ghost {
+  background: transparent;
+  color: hsl(240, 5%, 65%);
+  border: 1px solid hsl(240, 8%, 15%);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-ghost:hover {
+  background: hsla(240, 5%, 65%, 0.1);
+  color: hsl(0, 0%, 98%);
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, hsl(250, 100%, 60%), hsl(320, 100%, 65%));
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 4px 15px hsla(250, 100%, 60%, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px hsla(250, 100%, 60%, 0.4);
+}
+
+.btn-primary-large {
+  background: linear-gradient(135deg, hsl(250, 100%, 60%), hsl(320, 100%, 65%));
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 4px 15px hsla(250, 100%, 60%, 0.3);
+}
+
+.btn-primary-large:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px hsla(250, 100%, 60%, 0.4);
+}
+
+.btn-secondary-large {
+  background: hsla(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid hsla(255, 255, 255, 0.2);
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  backdrop-filter: blur(10px);
+}
+
+.btn-secondary-large:hover {
+  background: hsla(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px hsla(0, 0%, 0%, 0.3);
+}
+
+.btn-ghost-icon {
+  background: transparent;
+  color: hsl(240, 5%, 65%);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-ghost-icon:hover {
+  background: hsla(240, 5%, 65%, 0.1);
+  color: hsl(0, 0%, 98%);
+}
+
+/* Badge */
+.badge-primary {
+  background: hsla(250, 100%, 60%, 0.2);
+  color: hsl(250, 100%, 60%);
+  border: 1px solid hsla(250, 100%, 60%, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* Gradient Text */
+.bg-gradient-primary.bg-clip-text {
+  background: linear-gradient(135deg, hsl(250, 100%, 60%), hsl(320, 100%, 65%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Transitions */
+.velocity-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.velocity-hover:hover {
+  transform: scale(1.02);
+}
+
+/* Status Colors */
+.text-status-success {
+  color: hsl(140, 100%, 60%);
+}
+
+.text-velocity-blue {
+  color: hsl(220, 100%, 65%);
+}
+
+.text-velocity-green {
+  color: hsl(140, 100%, 60%);
+}
+
+.text-velocity-orange {
+  color: hsl(25, 100%, 65%);
+}
+
+/* Shadows */
+.shadow-strong {
+  box-shadow: 0 12px 24px hsla(240, 10%, 0%, 0.25);
+}
+
+.shadow-medium {
+  box-shadow: 0 4px 12px hsla(240, 10%, 0%, 0.15);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .text-5xl {
+    font-size: 3rem;
+  }
+  
+  .md\:text-7xl {
+    font-size: 4.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .text-5xl {
+    font-size: 2.5rem;
+  }
+  
+  .btn-primary-large,
+  .btn-secondary-large {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Grid Layouts */
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.md\:grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-8 {
+  gap: 2rem;
+}
+
+/* Spacing */
+.space-y-8 > * + * {
+  margin-top: 2rem;
+}
+
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+/* Flexbox */
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-3 {
+  gap: 0.75rem;
+}
+
+.gap-6 {
+  gap: 1.5rem;
+}
+
+.gap-8 {
+  gap: 2rem;
+}
+
+/* Text Alignment */
+.text-center {
+  text-align: center;
+}
+
+/* Typography */
+.text-xl {
+  font-size: 1.25rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+}
+
+.text-5xl {
+  font-size: 3rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.leading-tight {
+  line-height: 1.25;
+}
+
+.leading-relaxed {
+  line-height: 1.625;
+}
+
+/* Padding and Margins */
+.py-20 {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.py-16 {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.p-8 {
+  padding: 2rem;
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.p-12 {
+  padding: 3rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.mb-16 {
+  margin-bottom: 4rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.pt-8 {
+  padding-top: 2rem;
+}
+
+/* Positioning */
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.sticky {
+  position: sticky;
+}
+
+.top-0 {
+  top: 0;
+}
+
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+.z-50 {
+  z-index: 50;
+}
+
+/* Overflow */
+.overflow-hidden {
+  overflow: hidden;
+}
+
+/* Opacity */
+.opacity-10 {
+  opacity: 0.1;
+}
+
+/* Backdrop */
+.backdrop-blur-xl {
+  backdrop-filter: blur(24px);
+}
+
+/* Border Radius */
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.rounded-2xl {
+  border-radius: 1rem;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+/* Width and Height */
+.w-4 {
+  width: 1rem;
+}
+
+.w-5 {
+  width: 1.25rem;
+}
+
+.w-6 {
+  width: 1.5rem;
+}
+
+.w-8 {
+  width: 2rem;
+}
+
+.w-10 {
+  width: 2.5rem;
+}
+
+.w-16 {
+  width: 4rem;
+}
+
+.h-4 {
+  height: 1rem;
+}
+
+.h-5 {
+  height: 1.25rem;
+}
+
+.h-6 {
+  height: 1.5rem;
+}
+
+.h-8 {
+  height: 2rem;
+}
+
+.h-10 {
+  height: 2.5rem;
+}
+
+.h-16 {
+  height: 4rem;
+}
+
+/* Max Width */
+.max-w-2xl {
+  max-width: 42rem;
+}
+
+.max-w-4xl {
+  max-width: 56rem;
+}
+
+.max-w-6xl {
+  max-width: 72rem;
+}
+
+/* Hidden */
+.hidden {
+  display: none;
+}
+
+.md\:flex {
+  display: flex;
+}
+
+.md\:grid {
+  display: grid;
+}
+
+.md\:grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* Flex Direction */
+.flex-col {
+  flex-direction: column;
+}
+
+.sm\:flex-row {
+  flex-direction: row;
+}
+
+/* Fill */
+.fill-current {
+  fill: currentColor;
+}
+
+/* Responsive Text */
+@media (min-width: 768px) {
+  .md\:text-7xl {
+    font-size: 4.5rem;
+  }
+} 

@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../../../../firebase";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  orderBy,
+  query,
+  where,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import "./ViewTasks.css";
-import { deleteDoc, doc } from "firebase/firestore";
 import trash from "../../../assets/trash.png";
 
 interface Task {
@@ -11,7 +18,7 @@ interface Task {
   title: string;
   description: string;
   createdAt: string;
-  userId: string;
+  userId:string;
 }
 
 const ViewTasks: React.FC = () => {
@@ -22,7 +29,11 @@ const ViewTasks: React.FC = () => {
   const currentUser = auth.currentUser;
 
   // Tooltip State
-  const [tooltip, setTooltip] = useState<{ visible: boolean; x: number; y: number }>({
+  const [tooltip, setTooltip] = useState<{
+    visible: boolean;
+    x: number;
+    y: number;
+  }>({
     visible: false,
     x: 0,
     y: 0,
@@ -58,18 +69,13 @@ const ViewTasks: React.FC = () => {
           const data = doc.data();
           let formattedDate = "Unknown";
 
-          if (data.createdAt) {
-            if (data.createdAt.seconds) {
-              formattedDate = new Date(data.createdAt.seconds * 1000).toLocaleString("en-US", {
-                dateStyle: "medium",
-                timeStyle: "short",
-              });
-            } else if (typeof data.createdAt === "string") {
-              formattedDate = new Date(Date.parse(data.createdAt)).toLocaleString("en-US", {
-                dateStyle: "medium",
-                timeStyle: "short",
-              });
-            }
+          if (data.createdAt && data.createdAt.seconds) {
+            formattedDate = new Date(
+              data.createdAt.seconds * 1000
+            ).toLocaleString("en-US", {
+              dateStyle: "medium",
+              timeStyle: "short",
+            });
           }
 
           return {
@@ -95,6 +101,28 @@ const ViewTasks: React.FC = () => {
     fetchTasks();
   }, [currentUser]);
 
+  /**
+   * Handles the deletion of a task.
+   * @param taskId The ID of the task to delete.
+   */
+  const handleDelete = async (taskId: string) => {
+    // Hide the tooltip when the button is clicked
+    hideTooltip();
+    try {
+      // Get a reference to the specific task document in Firestore
+      const taskDocRef = doc(db, "tasks", taskId);
+      // Delete the document
+      await deleteDoc(taskDocRef);
+      // Update the local state to remove the deleted task from the UI
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : "An unknown error occurred.";
+      console.error("Error deleting task:", errorMessage);
+      setError("Failed to delete task. Please try again.");
+    }
+  };
+
   if (loading) {
     return <p>Loading tasks...</p>;
   }
@@ -117,9 +145,10 @@ const ViewTasks: React.FC = () => {
                 <p className="task-description">{task.description}</p>
                 <button
                   className="delete"
-                  onMouseEnter={showTooltip}  // Show tooltip when hovering starts
-                  onMouseMove={showTooltip}   // Update position as mouse moves
-                  onMouseLeave={hideTooltip}  // Hide tooltip when mouse leaves
+                  onClick={() => handleDelete(task.id)} // Added onClick handler
+                  onMouseEnter={showTooltip}
+                  onMouseMove={showTooltip}
+                  onMouseLeave={hideTooltip}
                 >
                   <img src={trash} alt="Delete" className="trash" />
                 </button>
@@ -133,12 +162,11 @@ const ViewTasks: React.FC = () => {
       {/* Tooltip UI */}
       {tooltip.visible && (
         <div
-          className="tooltip"
+          className="tooltip show"
           style={{
             position: "fixed",
             top: `${tooltip.y + 10}px`,
             left: `${tooltip.x + 10}px`,
-            display: "block",
           }}
         >
           Delete Task
